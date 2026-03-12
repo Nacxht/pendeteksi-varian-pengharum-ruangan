@@ -1,8 +1,7 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
 	import * as tmImage from "@teachablemachine/image";
 	import { onMount } from "svelte";
-
-	export let data;
 
 	let model: tmImage.CustomMobileNet;
 	let predictions: { className: string; probability: number }[] | null = [];
@@ -16,8 +15,11 @@
 
 		model = await tmImage.load(modelURL, metadataURL);
 
-		imgUrl = data.img;
-		if (!imgUrl) return;
+		imgUrl = sessionStorage.getItem("uploaded_image");
+		if (!imgUrl) {
+			goto("/");
+			return;
+		}
 
 		imgEl = new Image();
 		imgEl.src = imgUrl;

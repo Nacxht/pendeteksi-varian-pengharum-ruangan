@@ -10,14 +10,20 @@
 		if (!selected) return;
 
 		file = selected;
-		preview = URL.createObjectURL(selected);
+
+		const reader = new FileReader();
+		reader.onload = () => {
+			preview = reader.result as string; // base64 data URL
+		};
+		reader.readAsDataURL(selected);
 	}
 
 	async function handleSubmit(e: SubmitEvent) {
 		e.preventDefault();
 		if (!preview) return;
 
-		goto(`/result?img=${encodeURIComponent(preview)}`);
+		sessionStorage.setItem("uploaded_image", preview);
+		goto("/result");
 	}
 </script>
 
