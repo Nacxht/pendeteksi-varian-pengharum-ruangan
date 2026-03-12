@@ -10,8 +10,8 @@
 	let bestPrediction: { className: string; probability: number } | null;
 
 	onMount(async () => {
-		const modelURL = new URL("$lib/tm_model/model.json", import.meta.url).href;
-		const metadataURL = new URL("$lib/tm_model/metadata.json", import.meta.url).href;
+		const modelURL = new URL("/tm_model/model.json", import.meta.url).href;
+		const metadataURL = new URL("/tm_model/metadata.json", import.meta.url).href;
 
 		model = await tmImage.load(modelURL, metadataURL);
 
